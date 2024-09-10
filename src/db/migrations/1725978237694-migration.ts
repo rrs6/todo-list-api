@@ -21,6 +21,11 @@ export class Migration1725978237694 implements MigrationInterface {
                     name: 'name',
                     type: 'varchar',
                     isNullable: false
+                },
+                {
+                    name: 'password',
+                    type: 'varchar',
+                    isNullable: false
                 }
             ]
         }));

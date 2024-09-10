@@ -9,4 +9,7 @@ export class Member {
 
     @Column({nullable: false})
     name!: string;
+
+    @Column({nullable: false})
+    password!: string;
 }
