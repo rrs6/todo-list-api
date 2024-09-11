@@ -41,6 +41,9 @@ export class MemberService {
             const member = await this.memberRepo.findMemberByEmail(email);
             if(!member)
                 throw createHttpError(404, 'member not found');
+            const checkPassword = await bcrypt.compare(password, member.password);
+            if(!checkPassword)
+                throw createHttpError(401, 'unauthorized');
             const secret = process.env.SECRET as string;
             const refreshSecret = process.env.REFRESH_SECRET as string;
             const token = jwt.sign({"id": member.id}, secret, {expiresIn: '5m'});
