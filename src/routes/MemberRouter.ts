@@ -5,7 +5,6 @@ const router = express.Router();
 const memberController = new MemberController();
 
 router.post('/member/new', memberController.createMember.bind(memberController));
-router.delete('/member/:id', );
-router.put('/member/:id',);
+router.delete('/member/:id', memberController.deleteMember.bind(memberController));
 
 export default router;
