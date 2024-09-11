@@ -26,7 +26,7 @@ export class TaskRepository {
         getTask = {...getTask, name: (task.name ? task.name : getTask.name), 
                     description: (task.description ? task.description : getTask.description), 
                     finished: (task.finished ? task.finished : getTask.finished),
-                    finishedAt: (task.finished ? Date.now().toLocaleString() : getTask.finishedAt), 
+                    finishedAt: (task.finished ? (new Date().toISOString().slice(0, 19).replace('T', ' ')) : getTask.finishedAt), 
                     priority: (task.priority ? task.priority : getTask.priority)};
         return await this.taskRepo.save(getTask);
     }
