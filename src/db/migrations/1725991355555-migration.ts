@@ -18,17 +18,23 @@ export class Migration1725991355555 implements MigrationInterface {
                     length: '50'
                 },
                 {
+                    name: 'description',
+                    type: 'varchar',
+                    length: '140'
+                },
+                {
                     name: 'finished',
                     type: 'boolean',
                     default: false
                 },
                 {
                     name: 'finishedAt',
-                    type: 'timestamp'
+                    type: 'timestamp',
+                    isNullable: true
                 },
                 {
                     name: 'priority',
-                    type: 'number',
+                    type: 'int',
                     default: 0
                 }
             ]

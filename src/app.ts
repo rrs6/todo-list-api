@@ -13,8 +13,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
-app.use('/api',taskRouter);
-app.use('/api',memberRouter);
+app.use('/api', taskRouter);
+app.use('/api', memberRouter);
 app.use(errorHandler);
 
 const port = Number(process.env.SERVER_PORT);
