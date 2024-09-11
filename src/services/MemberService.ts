@@ -2,6 +2,7 @@ import createHttpError from "http-errors";
 import { MemberRepository } from "../db/repositories/MemberRepository";
 import { MemberType } from "../types/MemberType";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export class MemberService {
     private memberRepo: MemberRepository;
@@ -14,7 +15,7 @@ export class MemberService {
         const member = await this.memberRepo.findMemberByEmail(newMember.email);
         try{
             if(member)
-                throw createHttpError(400, "Email already exists");
+                throw createHttpError(409, "member already exists");
             const saltHash = await bcrypt.genSalt(12);
             const encryptedPass = await bcrypt.hash(newMember.password as string, saltHash);
             newMember.password = encryptedPass;
@@ -30,6 +31,21 @@ export class MemberService {
             if(!member)
                 throw createHttpError(404, "member not found");
             return await this.memberRepo.deleteMember(id);
+        }catch(err){
+            throw err;
+        }
+    }
+
+    async signInMember(email: string, password: string) {
+        try{
+            const member = await this.memberRepo.findMemberByEmail(email);
+            if(!member)
+                throw createHttpError(404, 'member not found');
+            const secret = process.env.SECRET as string;
+            const refreshSecret = process.env.REFRESH_SECRET as string;
+            const token = jwt.sign({"id": member.id}, secret, {expiresIn: '5m'});
+            const refreshToken = jwt.sign({"id": member.id}, refreshSecret, {expiresIn: '25m'});
+            return {token, refreshToken};
         }catch(err){
             throw err;
         }
