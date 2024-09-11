@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --transpile-only ./src/app.ts"
+    "dev": "ts-node-dev --transpile-only ./src/app.ts",
+    "migration:create": "ts-node-dev ./node_modules/.bin/typeorm migration:create ./src/db/migrations/migration",
+    "migrations:run": "ts-node-dev ./node_modules/.bin/typeorm migration:run -d ./src/db/connection.ts",
+    "migrations:revert": "ts-node-dev ./node_modules/.bin/typeorm migration:revert -d ./src/db/connection.ts"
   },
   "keywords": [],
   "author": "",
