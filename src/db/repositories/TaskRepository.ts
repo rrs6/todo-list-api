@@ -16,6 +16,10 @@ export class TaskRepository {
         return await this.taskRepo.save(newTask);
     }
 
+    async getAllTasks() {
+        return await this.taskRepo.find();
+    }
+
     async getTaskById(id: string) {
         const task = await this.taskRepo.findOneBy({id});
         return task;

@@ -16,6 +16,14 @@ export class TaskService {
         }
     }
 
+    async getAllTasks() {
+        try{
+            return await this.taskRepo.getAllTasks();
+        }catch(err){
+            throw err;
+        }
+    }
+
     async getTaskById(id: string) {
         try{
             return await this.taskRepo.getTaskById(id);

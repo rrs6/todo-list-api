@@ -20,6 +20,16 @@ export class TaskController {
         }
     }
 
+    async getAllTasks(req: Request, res: Response, next: NextFunction) {
+        console.log("sashdiahsdiahi");
+        try {
+            const tasks = await this.taskService.getAllTasks();
+            return res.status(200).json(tasks);
+        }catch(err){
+            next(err);
+        }
+    }
+
     async deleteTask(req: Request, res: Response, next: NextFunction) {
         const {id} = req.params;
         try {
