@@ -10,9 +10,9 @@ export class TaskController {
     }
 
     async createTask(req: Request, res: Response, next: NextFunction) {
-        const {name, description, priority} = req.body;
+        const {memberId, name, description, priority} = req.body;
         try {
-            const task: TaskType = { name, description, priority, finished: false };
+            const task: TaskType = {memberId, name, description, priority, finished: false };
             const newTask = await this.taskService.createTask(task);
             return res.status(201).json({"msg": "task created"});
         }catch(err){
@@ -55,7 +55,8 @@ export class TaskController {
     }
 
     async updateTask(req: Request, res: Response, next: NextFunction) {
-        const {id, name, description, finished, priority} = req.body;
+        const {id} = req.params;
+        const {name, description, finished, priority} = req.body;
         try {
             const task = await this.taskService.getTaskById(id);
             if(!task)

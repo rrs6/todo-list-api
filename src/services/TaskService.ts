@@ -40,6 +40,14 @@ export class TaskService {
         }
     }
 
+    async deleteAllUserTask(memberId: string) {
+        try{
+            return await this.taskRepo.deleteAllUserTasks(memberId);
+        }catch(err){
+            throw(err);
+        }
+    }
+
     async updateTask(taskInfo: TaskType) {
         try {
             return await this.taskRepo.updateTask(taskInfo);

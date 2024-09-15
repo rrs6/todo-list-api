@@ -11,6 +11,9 @@ export class Task {
     @Column("varchar", {length: 140})
     description!: string;
 
+    @Column()
+    memberId!: string;
+
     @Column({nullable: false})
     finished!: boolean;
 

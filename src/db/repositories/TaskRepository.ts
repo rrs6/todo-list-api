@@ -11,8 +11,8 @@ export class TaskRepository {
 
     async createTask(task: TaskType) {
         let newTask = this.taskRepo.create(new Task());
-        const {name, description, finished} = task;
-        newTask = {...newTask, name, description};
+        const {name, description, memberId} = task;
+        newTask = {...newTask, name, description, memberId: memberId as string};
         return await this.taskRepo.save(newTask);
     }
 
@@ -33,6 +33,10 @@ export class TaskRepository {
                     finishedAt: (task.finished ? (new Date().toISOString().slice(0, 19).replace('T', ' ')) : getTask.finishedAt), 
                     priority: (task.priority ? task.priority : getTask.priority)};
         return await this.taskRepo.save(getTask);
+    }
+
+    async deleteAllUserTasks(memberId: string) {
+        return await this.taskRepo.delete({memberId});
     }
 
     async deleteTask(id: string) {

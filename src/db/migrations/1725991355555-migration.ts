@@ -28,6 +28,10 @@ export class Migration1725991355555 implements MigrationInterface {
                     default: false
                 },
                 {
+                    name: 'memberId',
+                    type: 'varchar'
+                },
+                {
                     name: 'finishedAt',
                     type: 'timestamp',
                     isNullable: true
@@ -36,6 +40,13 @@ export class Migration1725991355555 implements MigrationInterface {
                     name: 'priority',
                     type: 'int',
                     default: 0
+                }
+            ],foreignKeys: [
+                {
+                    name: "fk_member_id",
+                    columnNames: ["memberId"],
+                    referencedTableName: "member",
+                    referencedColumnNames: ["id"]
                 }
             ]
         }))

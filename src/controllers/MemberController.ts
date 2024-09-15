@@ -1,11 +1,14 @@
 import { Response, Request, NextFunction } from "express";
 import { MemberService } from "../services/MemberService";
 import { MemberType } from "../types/MemberType";
+import { TaskService } from "../services/TaskService";
 
 export class MemberController {
     private memberService: MemberService;
+    private taskService: TaskService;
     constructor() {
         this.memberService = new MemberService();
+        this.taskService = new TaskService();
     }
 
     async createMember(req: Request, res: Response, next: NextFunction) {
@@ -22,6 +25,7 @@ export class MemberController {
     async deleteMember(req: Request, res: Response, next: NextFunction) {
         const { id } = req.params;
         try {
+            await this.taskService.deleteAllUserTask(id);
             await this.memberService.deleteMember(id);
             return res.status(200).json({"msg": `member with id ${id} was deleted`});
         }catch(err){
