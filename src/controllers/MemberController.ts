@@ -32,8 +32,8 @@ export class MemberController {
     async signInMember(req: Request, res: Response, next: NextFunction) {
         const {email, password} = req.body;
         try {
-            const {token, refreshToken} = await this.memberService.signInMember(email, password);
-            return res.status(200).json({token, refreshToken});
+            const {token, member} = await this.memberService.signInMember(email, password);
+            return res.status(200).json({token, member: {id: member.id, name: member.name, email: member.email}});
         }catch(err){
             next(err);
         }
