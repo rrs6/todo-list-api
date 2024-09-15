@@ -45,10 +45,8 @@ export class MemberService {
             if(!checkPassword)
                 throw createHttpError(401, 'unauthorized');
             const secret = process.env.SECRET as string;
-            const refreshSecret = process.env.REFRESH_SECRET as string;
-            const token = jwt.sign({"id": member.id}, secret, {expiresIn: '5m'});
-            const refreshToken = jwt.sign({"id": member.id}, refreshSecret, {expiresIn: '25m'});
-            return {token, refreshToken};
+            const token = jwt.sign({"id": member.id}, secret);
+            return {token, member};
         }catch(err){
             throw err;
         }
