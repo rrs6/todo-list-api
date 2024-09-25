@@ -13,7 +13,6 @@ export async function basicAuthHandler(req: Request, res: Response, next: NextFu
         if(err)
             return res.status(401).send('Unauthorized');
         const decoded = decode as payloadToken;
-        req.body.userId = decoded.id;
         next();
     })
 }
